@@ -6,7 +6,17 @@ const norm=s=>String(s||'').trim().toUpperCase();
 const clone=o=>JSON.parse(JSON.stringify(o));
 const fmtDate=v=>{if(!v)return'-';const [y,m,d]=v.split('-');return y&&m&&d?`${d}/${m}/${y}`:v};
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+function nextQuoteNumber(){
+  const nums=(db.quotes||[])
+    .map(q=>Number(q.numero)||0);
+  return Math.max(1000,...nums)+1;
+}
 
+function nextOrderNumber(){
+  const nums=(db.orders||[])
+    .map(o=>Number(o.numero)||0);
+  return Math.max(0,...nums)+1;
+}
 const DEFAULT_PRICE_CONFIG={
   finishes:{
     'LINHO SINTÉTICO':{price:42,normalMax:280,specialMax:305,specialPct:10,rollWidth:3},
